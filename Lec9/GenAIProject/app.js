@@ -6,10 +6,14 @@ const app = express();
 const { GoogleGenAI } = require("@google/genai")
 const ai = new GoogleGenAI({apiKey: "your api key"});
 
-
+app.use(express.static('public'))
 app.use(express.json()) // ye line isliye lagayi hain taki hum postman se json data bhej sakein aur usko read kar sakein
 app.use(express.urlencoded({extended:true})) // ye line isliye lagayi hain taki hum postman se form data bhej sakein aur usko read kar sakein
 
+
+app.get('/',(req,res)=>{
+    res.send('/index.html');
+})
 
 app.post('/ask',async (req,res)=>{
     const {q} = req.body;
