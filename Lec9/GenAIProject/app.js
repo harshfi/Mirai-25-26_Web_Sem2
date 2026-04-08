@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 // import { GoogleGenAI } from "@google/genai";
 const { GoogleGenAI } = require("@google/genai")
-const ai = new GoogleGenAI({apiKey: "AIzaSyBm-HWPR4Q1gtrocx7misp73GcHfIZJsdg"});
+const ai = new GoogleGenAI({apiKey: ""});
 
 app.use(express.static('public'))
 app.use(express.json()) // ye line isliye lagayi hain taki hum postman se json data bhej sakein aur usko read kar sakein
