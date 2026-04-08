@@ -2,36 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Simple Chat Input</title>
+  <title>Q&A UI</title>
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      background: #f5f5f5;
       font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
 
-    .chat-container {
-      width: 100%;
-      max-width: 600px;
+    /* Response area */
+    .response-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .response-box {
+      background: white;
       padding: 15px;
-      background: #ffffff;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Input area */
+    .input-container {
       display: flex;
       gap: 10px;
-      border-top-left-radius: 12px;
-      border-top-right-radius: 12px;
+      padding: 15px;
+      background: #ffffff;
+      border-top: 1px solid #ddd;
     }
-
+    .questions{
+        display: flex;
+        gap: 10px;
+        padding: 15px;
+        background: #ffffff;
+        border-top: 1px solid #ddd;
+       
+    }
     textarea {
       flex: 1;
       resize: none;
-      border: 1px solid #ccc;
-      border-radius: 10px;
       padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
       font-size: 14px;
       outline: none;
     }
@@ -48,7 +66,6 @@
       font-size: 14px;
       border-radius: 10px;
       cursor: pointer;
-      transition: background 0.2s;
     }
 
     button:hover {
@@ -57,11 +74,24 @@
   </style>
 </head>
 <body>
+  <div class="questions">
+   <!-- <div></div> -->
+  </div>
+  <!-- Response Section -->
+  <div class="response-container">
+    <div class="response-box">
+      <strong>Response:</strong>
+      <p></p>
+    </div>
+  </div>
 
+  <!-- Input Section -->
   <div class="chat-container">
-    <textarea placeholder="Type your message..."></textarea>
+    <textarea placeholder="Ask your question..."></textarea>
     <button>Send</button>
   </div>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>
 </html>
