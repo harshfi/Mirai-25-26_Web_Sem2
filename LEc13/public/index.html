@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main{
+            width:500px;
+            margin-left: 350px;
+            border: 2px solid balck
+        }
+        input{
+            width: 350px;
+            height: 30px;
+            border:2px solid rgb(0, 157, 255);
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+        .search{
+            margin-left: 20px;
+        }
+        .addTask{
+            /* width: 60px; */
+            height: 30px;
+            background-color: green;
+            border-radius: 10px;
+        }
+        .screen{
+          width:500px;
+          border:2px solid green;
+          margin-top: 20px
+        }
+        .btns{
+            display: flex;
+            justify-content: space-between;
+        }
+        .btns button{
+            margin: 10px;
+        }
+        ul{
+            background-color: aqua;
+        }
+        .active{
+            background-color: aqua;
+        }
+        li{
+            height: 25px;
+            margin-top: 3px;
+            border-top: 1px solid black ;
+        }
+        li button{
+            margin-top: 2px ;
+        }
+        .complete{
+            background-color: greenyellow;
+        }
+        
+    </style>
+</head>
+<body>
+
+    
+
+    <div class="main">
+        <h1 style="margin-left: 40px;">Welcome to my todo list</h1>
+     <div class="search">
+        <input type="text" name="search" id="">
+        <button class="addTask">Add Task</button>
+     </div>
+
+     <div class="screen">
+        <div class="btns">
+            <button class="active">ALL</button>
+            <button>Pending</button>
+            <button>Completed</button>
+        </div>
+        <ul class="tasks">
+           <!-- <li> 
+            </li> -->
+        </ul>
+     </div>
+     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+     <script src="script.js"></script>
+     
+
+</body>
+</html>
