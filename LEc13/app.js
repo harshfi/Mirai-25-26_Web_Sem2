@@ -72,7 +72,7 @@ app.post('/updatedTask',(req,res)=>{
     let idx=-1;
     for(let i=0; i< arr.length;i++){
         if(arr[i].task===task){
-           arr[i].status=true;
+           arr[i].status=!arr[i].status;
             idx=i;
             break;
         }
@@ -95,6 +95,7 @@ app.get('/pendingTask',(req,res)=>{
 })
 
 app.get('/completedTask',(req,res)=>{
+
      let completed= arr.filter((i)=> i.status==true)
 
     res.send(completed);

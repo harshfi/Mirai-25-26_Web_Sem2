@@ -4,9 +4,7 @@ let input =document.querySelector('input')
 let btns =document.querySelector('.btns');
 let li=document.querySelectorAll('li');
 
-array.forEach(element => {
-    
-});
+
 
 // console.log(btns)
 
@@ -20,8 +18,10 @@ addTask.addEventListener('click',async(e)=>{
 btns.addEventListener('click',(e)=>{
       let newActive=(e.target);
       let oldActive=document.querySelector('.active');
+      if(!newActive )return
       oldActive.classList.remove('active')//old wala remove
       newActive.classList.add('active');//new wala added
+
 
       display()
 
@@ -87,7 +87,24 @@ function attach(data){
 
     ul.appendChild(li);
    }
+  
 }
+
+ul.addEventListener('click',async(e)=>{
+     let btn=(e.target);
+     let liText=btn.parentElement.previousElementSibling;
+         liText=liText.innerText;
+     if(btn.innerText=="delete"){
+        await axios.post('/deleteTask',({task:liText}))
+         display()
+     }
+     else if (btn.innerText==='complete' || (btn.innerText==='undo') ){
+           //completedTask
+           await axios.post('/updatedTask',({task:liText}))
+           display()
+     }
+})
+
 
 
 display()
