@@ -1,0 +1,21 @@
+
+     
+<%-include('./header.ejs')-%>
+
+     <div class="mt-3 d-flex flex-wrap justify-content-evenly">
+        <% for(let movie of allMovies){ %>
+           <div class="card col-4" style="width: 18rem;">
+          <img src=<%=movie.img%> class="card-img-top" alt="...">
+           <div class="card-body">
+       <h5 class="card-title"><%= movie.name %></h5>
+       <h6 class="disabled"><%=movie.year%></h6>
+      <p class="card-text"><%= movie.desc %></p>
+
+    <a href="/movies/<%=movie._id%>" class="btn btn-primary">view</a>
+  </div>
+</div>
+        <%}%>
+     </div>
+
+
+     <%-include('./footer.ejs')-%>

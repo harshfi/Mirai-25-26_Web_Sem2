@@ -1,0 +1,72 @@
+<%-include('./header.ejs')-%>
+<div class="d-flex justify-content-evenly">
+ <div style="max-width: 400px; background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+
+        <!-- Movie Image -->
+        <img src="<%=m.img%>" alt="Movie Image" style="width: 100%; height: auto;">
+
+        <!-- Movie Details -->
+        <div style="padding: 15px;">
+            <h2 style="margin: 0; color: #333;"><%=m.name%></h2>
+            <p style="color: #777; margin: 5px 0 10px 0;">Year: <%=m.year%></p>
+            <p style="color: #555; line-height: 1.5;">
+                <%=m.desc%>
+            </p>
+        </div>
+        <div class="d-flex justify-content-evenly">
+           <form action="/movie/delete/<%=m._id%>?_method=DELETE"  method="POST">
+            <button type="submit" class="btn btn-danger">Delete</button>
+           </form>
+
+            <form action="/edit/<%=m._id%>" >
+            <button type="submit" class="btn btn-primary">Edit</button>
+           </form>
+           
+
+           </div>
+        </div>
+        <div style="border-left:2px solid black ;padding-left: 50px;">
+            <h1>Rating</h1>
+            <form action="/rating/<%=m._id%>" method="POST">
+               <fieldset class="starability-basic">
+  <legend>First rating:</legend>
+  <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="rating" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="rating" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="rating" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="rating" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="rating" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset> 
+   <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Comments</label>
+    <textarea type="text" name="comment" cols="10" class="form-control" id=""> </textarea>
+  </div>
+       
+  <button class="btn btn-primary" type="submit">comment</button>
+            </form>
+            <div class="mt-4">
+                <%for(let r of m.reviews){%>
+                      <div class="card">
+  <div class="card-header mt-2">
+    <p class="starability-result" data-rating="<%=r.rating%>">
+   
+  </p>
+  </div>
+  <div class="card-body">
+   
+    <p class="card-text"><%=r.comment%></p>
+  
+  </div>
+</div>
+                <%}%>
+            </div>
+        </div>
+  </div>
+
+        <%-include('./footer.ejs')-%>
+
