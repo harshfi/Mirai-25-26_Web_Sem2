@@ -28,6 +28,22 @@ app.get('/',async(req,res)=>{
     res.render('index.ejs',{allMovies})
 })
 
+app.get('/trending',async (req,res)=>{
+    //allmovie->(_id,avg)->avgRating Sort -> top(5)->id ->5;
+    const trend= await getTrending();
+    let m=[];
+    for(let i=0;i<trend.length;i++){
+       let id= trend[i].id;
+       const moive= await Movie.findById(id);
+       m.push(moive);
+    }
+
+   
+
+    res.render('trending.ejs',{m});
+    
+})
+
 app.get('/new', (req,res)=>{
     res.render('new.ejs')
 })
@@ -91,8 +107,29 @@ app.post('/rating/:id',async(req,res)=>{
     res.redirect(`/movies/${id}`);
 })
 
+async function getTrending(){
 
+    // const m=await Movie.find({reviews:{$ne:[]}});//this can also be the solution
+    const m=await Movie.find({});
 
+    let trendingMovie=[];
+
+    for(let i=0;i<m.length;i++){
+       
+        if(m[i].reviews.length==0)continue;
+        
+        const avg=(m[i].reviews.reduce((sum,r)=>sum+r.rating,0))/m[i].reviews.length;
+
+        trendingMovie.push({id:m[i]._id,avg:avg});
+
+    }
+    trendingMovie.sort((a,b)=>b.avg-a.avg);//
+    //  console.log(trendingMovie)
+    if(trendingMovie.length>5) return trendingMovie.slice(0,5);
+    else return trendingMovie;
+}
+
+   
 
 
 app.listen(3000,()=>{
