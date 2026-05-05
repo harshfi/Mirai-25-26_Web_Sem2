@@ -3,13 +3,14 @@ const express =require('express');
 const app= express();
 
 const path= require('path');
+require('dotenv').config()
 
 const mongoose=require('mongoose');
 const seed=require('./seed')
 const Movie=require('./models/movies');
 const methodOverride = require('method-override');
 const { GoogleGenAI } = require("@google/genai");
-const ai = new GoogleGenAI({apiKey:'AIzaSyAz5Aq3mQb9bCsOEH6rm_Pahyh1sbMEM1Y'});
+const ai = new GoogleGenAI({apiKey:process.env.apiKey});
 // const path=require('path');
 
 app.set('view engine', 'ejs');
