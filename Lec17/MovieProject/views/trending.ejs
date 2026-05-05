@@ -18,7 +18,7 @@
          <p class="starability-result" data-rating="<%= movie.reviews.length!==0 ?( Math.floor( movie.reviews.reduce((acc, review) => acc + review.rating, 0)/movie.reviews.length) ): 0 %>" > </p>
 
          <h6>|RatedBy: <%=movie.reviews.length%></h6>
-
+        <a href="/movies/<%=movie._id%>" class="btn btn-primary">view</a>
       </div>
     </div>
   </div>

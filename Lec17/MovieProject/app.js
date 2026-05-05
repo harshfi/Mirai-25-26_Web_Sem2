@@ -8,10 +8,14 @@ const mongoose=require('mongoose');
 const seed=require('./seed')
 const Movie=require('./models/movies');
 const methodOverride = require('method-override');
+const { GoogleGenAI } = require("@google/genai");
+const ai = new GoogleGenAI({apiKey:'AIzaSyAz5Aq3mQb9bCsOEH6rm_Pahyh1sbMEM1Y'});
+// const path=require('path');
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended:true}))
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname,'public')))
 
 // mongoose.connect('app.use(express.urlencoded({extended:true}));')
 mongoose.connect('mongodb://127.0.0.1:27017/Movies')
@@ -21,11 +25,23 @@ mongoose.connect('mongodb://127.0.0.1:27017/Movies')
 // seed();
 
 app.get('/',async(req,res)=>{
-    const allMovies= await Movie.find();
 
-    // res.send(allMovies);
+    const {q}=req.query;
 
-    res.render('index.ejs',{allMovies})
+    if(q){
+
+        const allMovies=await Movie.find({$or: [{name:{$regex: q,$options:'i'}},{desc:{$regex: q,$options:'i'}}]})
+        res.render('index.ejs',{allMovies})
+
+
+    }
+    else{
+            const allMovies= await Movie.find();
+            res.render('index.ejs',{allMovies})
+    }
+
+    
+   
 })
 
 app.get('/trending',async (req,res)=>{
@@ -129,8 +145,49 @@ async function getTrending(){
     else return trendingMovie;
 }
 
-   
 
+app.get('/summary/:id',async (req,res)=>{
+    const {id}=req.params;
+    const m=await Movie.findById(id);
+
+       const response = await ai.models.generateContent({
+          model: "gemini-3-flash-preview",
+          contents: prompt(m),
+       });
+       const data=JSON.parse(response.text);
+
+//   console.log("json",data);
+//   console.log("json",response.title);
+
+  res.render('summary.ejs',{m,data});
+})
+   
+function prompt(m){
+  return `You are a movie information assistant.
+
+Input:
+Movie Name: ${m.name}
+Year of Release: ${m.year}
+
+Task:
+1. Generate a summary of the movie in approximately 200 words.
+2. Provide a list of main cast members with their character names.
+3. Provide a poster image URL (use a valid public movie poster link if possible).
+
+Output ONLY in JSON format like this:
+
+{
+  "title": "Movie Name",
+  "year": "Year",
+  "summary": "200-word summary here",
+  "poster": "image_url_here",
+  "cast": [
+    "Actor as Character",
+    "Actor as Character",
+    "Actor as Character"
+  ]
+}`
+}
 
 app.listen(3000,()=>{
     console.log('server has started')
