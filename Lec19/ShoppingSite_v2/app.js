@@ -4,6 +4,7 @@ const EjsMateEngine = require('ejs-mate');
 const mongoose=require('mongoose');
 const seed=require('./seed');
 const ProductRoutes=require('./routes/productRoutes')
+const ReviewRoutes=require('./routes/reviewRoutes')
 const path=require('path')
 const methodOverride = require('method-override')
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(methodOverride('_method'))
 
 app.use(ProductRoutes)
+app.use(ReviewRoutes)
 
 
 

@@ -12,7 +12,9 @@ router.get('/products/show/:id' , async(req,res)=>{
    
     const {id}=req.params;
 
-    const product=await Product.findById(id);
+    const product=await Product.findById(id).populate('reviews');
+
+    //   console.log(product)
 
     res.render('products/show.ejs', {product});
 
