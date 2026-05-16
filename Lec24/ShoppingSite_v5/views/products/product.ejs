@@ -1,0 +1,18 @@
+
+<%- layout('/main/boilerplate.ejs') -%>
+
+<div class="d-flex mt-4 justify-content-evenly flex-wrap"  cols="12">
+    <% for(let product of products){%>
+
+        <div class="card m-3" cols="4" style="width: 18rem;">
+     <img src="<%=product.img%>" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><%=product.name%></h5>
+    <h6 class="card-title"> $ <%=product.price%></h6>
+    <p class="card-text"><%=product.desc%></p>
+    <a href="/products/show/<%=product._id%>" class="btn btn-primary">view</a>
+  </div>
+</div>
+          
+    <%}%>
+</div>

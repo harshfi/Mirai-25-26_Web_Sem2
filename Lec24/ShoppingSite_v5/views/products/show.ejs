@@ -1,0 +1,87 @@
+<%- layout('/main/boilerplate.ejs') -%>
+
+<div class="d-flex justify-content-evenly">
+<div class="mt-5">
+     
+
+    <div class="card ml-4 col col-lg-2" cols="6" style="width: 18rem; margin-left: 40px; width: 300px;">
+  <img src="<%= product.img %>" class="card-img-top ml-3"  alt="...">
+  <div class="card-body">
+    <h4 class="card-title"><%=product.name%></h4>
+    <h6 class="card-title">$ <%=product.price%></h6>
+    <p class="card-text"><%=product.desc%></p>
+
+
+    <button class="btn btn-primary" >Buy</button>
+     <button class="btn btn-secondary" >Add To Cart</button>
+     <a class="btn btn-warning" href="/products/<%=product._id%>/edit"> Edit</a>
+
+     <form action="/products/<%=product._id%>/delete?_method=DELETE"    method="POST">
+     <button type="submit" class="btn btn-danger"> Delete</button>
+     </form>
+    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+  </div>
+</div>
+
+</div>
+
+<div class="pl-5 mt-5 reviews">
+ <h1>Reviews Section</h1>
+ <form action="/products/<%=product._id%>/reviews" method="POST">
+
+
+  <!-- //startablity -->
+   <fieldset class="starability-coinFlip">
+  <legend>First rating:</legend>
+  <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="rating" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="rating" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="rating" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="rating" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="rating" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+
+
+
+
+
+
+  <div class="form-group mt-4">
+    <label for="exampleInputEmail1">Leave your Comment :</label>
+    <textarea rows="5"  name="comment" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"> </textarea>
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+
+  <button type="submit" class="btn btn-primary mt-2">Rate</button>
+ </form>
+
+ <div class="mt-5">
+  <h3><strong> <%= product.reviews.length!==0? "Reviews": "No Reviews Yet!!!" %> </strong></h3>
+   <%for(let review of product.reviews){%>
+        <div class="card mt-3" style="width: 18rem;">
+  <div class="card-header">
+     <p class="starability-result" data-rating="<%=review.rating%>">
+    Rated: <%=review.rating%> stars
+  </p>
+    
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%=review.comment%></li>
+    
+  </ul>
+  <!-- products/:pid/reviews/delete/:rid -->
+   <!-- /products/show/products/69fc196f53e66b462d31a292/reviews/delete/69fed913c302588ef47beb4c -->
+  <form action="/products/<%=product._id%>/reviews/delete/<%=review._id%>?_method=DELETE" method="POST">
+    <button class="btn-danger btn">Delete</button>
+  </form>
+</div>
+   <%}%>
+ </div>
+</div>
+
+</div>
