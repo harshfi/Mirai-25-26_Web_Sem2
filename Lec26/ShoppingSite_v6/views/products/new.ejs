@@ -1,0 +1,52 @@
+<%- layout('/main/boilerplate.ejs') -%>
+ <div class="mt-5 m-auto" style="width:600px; border:0.5px solid black; padding:10px"  >
+<form class="needs-validation" action="/products/create" method="POST" novalidate>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Name</label>
+    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+   <div class="form-group">
+    <label for="exampleInputEmail1">Price</label>
+    <input type="Number" name="price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  required>
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Image URL</label>
+    <input type="text" name="img" class="form-control"  placeholder="" required>
+  </div>
+
+   <div class="form-group">
+    <label for="exampleInputEmail1">Desc</label>
+    <input type="text" name="desc" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
+
+
+<script >
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
